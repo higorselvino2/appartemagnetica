@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { generateScript } from '../services/geminiService';
 import { MessageSquare, Copy, Loader2, RefreshCw } from 'lucide-react';
 import { Language } from '../types';
+import Markdown from 'react-markdown';
 
 interface SmartScriptsProps {
   lang: Language;
@@ -119,13 +120,13 @@ export const SmartScripts: React.FC<SmartScriptsProps> = ({ lang }) => {
             </div>
           </div>
           
-          <div className="flex-1 overflow-auto bg-dark-bg p-4 rounded-lg border border-gray-700 text-gray-300 font-mono text-sm whitespace-pre-wrap">
+          <div className="flex-1 overflow-auto bg-dark-bg p-4 rounded-lg border border-gray-700 text-gray-300 font-mono text-sm markdown-body prose prose-invert prose-sm max-w-none">
             {loading ? (
               <div className="h-full flex items-center justify-center text-gray-500 gap-2">
                 <RefreshCw className="animate-spin" /> Gerando a melhor resposta...
               </div>
             ) : result ? (
-               result
+               <Markdown>{result}</Markdown>
             ) : (
               <div className="h-full flex items-center justify-center text-gray-600 italic text-center">
                 Configure o cenário e clique em gerar para ver a mágica acontecer.
